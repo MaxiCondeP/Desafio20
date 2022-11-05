@@ -1,5 +1,5 @@
 {
-  "name": "desafio14loggeranalisis",
+  "name": "desafio15",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -33,7 +33,7 @@
   "scripts": {
     "dev": "nodemon start server.js",
     "test": "node benchmark.js",
-    "start": "giserver.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
