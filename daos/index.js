@@ -1,10 +1,9 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import {config} from '../config.js'
 
 export let daoMessages;
 export let daoProducts;
 
-switch (process.env.DATA_PERSISTENCE) {
+switch (config.dataPersistence) {
     case 'MONGO':
 		const { default: mongoMessageDao } = await import('../daos/mongoMessageDao.js');
 		const { default: mongoProductDao } = await import('../daos/mongoProductDao.js');

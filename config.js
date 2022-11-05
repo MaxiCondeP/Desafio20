@@ -34,5 +34,6 @@ export const config = {
     },
     firebase: {
       db: admin.firestore()
+    },
+    dataPersistence: process.env.DATA_PERSISTENCE,
     }
-  }
