@@ -42,8 +42,9 @@ export let logUsr = "";
 
 passport.use("login", new LocalStrategy(async (username, password, done) => {
   const user = await User.findOne({ username });
+  let passHash="";
   if(user) {
-    let passHash = user.password;
+  passHash = user.password;
   }
   if (!user || !isValidPassword(password, passHash)) {
     return done(null, null, { message: "Invalid username or password" });
