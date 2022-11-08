@@ -42,16 +42,15 @@ export let logUsr = "";
 
 passport.use("login", new LocalStrategy(async (username, password, done) => {
   const user = await User.findOne({ username });
-  let passHash="";
-  if(user) {
-  passHash = user.password;
+  let passHash=" ";
+  if(user){
+    passHash = user.password;
   }
   if (!user || !isValidPassword(password, passHash)) {
     return done(null, null, { message: "Invalid username or password" });
   } else {
     return done(null, user);
   }
-
 }));
 
 passport.use("signup", new LocalStrategy({
@@ -244,7 +243,7 @@ io.on("connection", async (socket) => {
 });
 
 
-const PORT = args.PORT;
+const PORT = process.env.PORT || args.PORT;
 const srv = httpServer;
 
 
