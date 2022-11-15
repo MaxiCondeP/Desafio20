@@ -151,7 +151,6 @@ app.get("/login", (req, res) => {
     logger.log("info", `Ruta: ${req.url}, Metodo: ${req.method}`);
     res.redirect("/dashboard");
   }
-
 })
 
 app.get("/signup", (req, res) => {

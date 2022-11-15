@@ -21,7 +21,7 @@
 
 <body>
   <div id="divLogout" class="loggedDb">
-    <form id="logoutForm" action="http://localhost:8080/logout" method="get">
+    <form id="logoutForm" action="/logout" method="get">
       <div class="input-group mb-3"></div>
         <span id="logSpan" type="text" class="form-control" aria-label="Recipient's username"
           aria-describedby="button-addon2">Bienvenido</span>
@@ -32,7 +32,7 @@
 
   <h3>Carga de productos</h3>
   <div class="container">
-    <form id="productsForm" action="http://localhost:8080/api/productos" method="post">
+    <form id="productsForm" action="/api/productos" method="post">
       <div class="mb-3">
         <label for="title">Nombre del producto: </label>
         <input id="titleInput" type="text" class="form-control" name="title">
