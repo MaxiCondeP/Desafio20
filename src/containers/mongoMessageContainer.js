@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
-import { config } from '../config.js';
+import { config } from '../../config.js';
 
 try {
     mongoose.connect(config.mongo.uri, config.mongo.options);
-    console.log("Connected ok to mongoDB");
 } catch (error) {
-    console.log(error);
+    console.log("Error en db 1",error);
 };
 
 const schemaMessage = new mongoose.Schema({

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import {config} from '../../config.js'
 const Schema = mongoose.Schema;
 
 
@@ -10,5 +11,10 @@ const userSchema = new Schema({
 export const User = mongoose.model('users', userSchema);
 
 export const connect = async () => {
-    await mongoose.connect('mongodb://localhost:27017/eccomerce');
+  
+  try{
+    mongoose.connect(config.mongo.uri, config.mongo.options); 
+  }catch{
+    console.log("aca me rompo")
+  }
   };

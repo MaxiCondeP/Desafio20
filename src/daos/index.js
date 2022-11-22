@@ -1,4 +1,4 @@
-import {config} from '../config.js'
+import {config} from '../../config.js'
 
 export let daoMessages;
 export let daoProducts;
@@ -9,6 +9,7 @@ switch (config.dataPersistence) {
 		const { default: mongoProductDao } = await import('../daos/mongoProductDao.js');
 		daoMessages = new mongoMessageDao();
 		daoProducts = new mongoProductDao();
+		
 		break;
 	case 'FIREBASE':
 		const { default: firebaseMessageDao } = await import('../daos/firebaseMessageDao.js');
