@@ -1,5 +1,7 @@
 import * as fs from 'fs';
 
+let instance= null;
+
 
 export class Message {
     constructor(mail,name,lastname, age, alias, avatar, text) {
@@ -23,6 +25,12 @@ export class fileMessageContainer {
         this.rutaDeArchivo = "./public/" + this.nombre + ".txt";
     }
 
+    static getContainer(nombreArchivo){
+        if(!instance){
+            instance=new fileMessageContainer(nombreArchivo);
+        }
+        return instance;
+    }
 
     ///traigo todos los msj del archivo
     async getAll() {

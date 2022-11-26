@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { config } from '../../config.js';
 
+let instance=null;
+
 try {
     mongoose.connect(config.mongo.uri, config.mongo.options);
 } catch (error) {
@@ -41,6 +43,12 @@ export class mongoMessageContainer {
         this.collection = mongoose.model('messages', schemaMessage);
     }
 
+    static getContainer(){
+        if(!instance){
+            instance=new mongoMessageContainer();
+        }
+        return instance;
+    }
 
     ///traigo todos los msj del archivo
     async getAll() {

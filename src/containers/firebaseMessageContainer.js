@@ -1,4 +1,6 @@
-import {config} from '../config.js'
+import { config } from '../../config.js';
+
+let instance= null
 
 export class Message {
     constructor(mail,name,lastname, age, alias, avatar, text) {
@@ -22,6 +24,12 @@ export class firebaseMessageContainer {
 		this.query = this.db.collection('messages');
     }
 
+    static getContainer(){
+        if(!instance){
+            instance=new firebaseMessageContainer();
+        }
+        return instance;
+    }
 
     ///traigo todos los msj del archivo
     async getAll() {

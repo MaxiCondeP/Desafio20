@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import {config} from '../../config.js';
 
+let instance=null;
+
 try {
  
     mongoose.connect(config.mongo.uri,config.mongo.options);
@@ -34,6 +36,13 @@ export class mongoProductContainer {
         this.collection = mongoose.model('products', schemaProduct);
     }
 
+    static getContainer(){
+        if(!instance){
+            instance=new mongoProductContainer();
+        }
+        return instance;
+    }
+    
     ///Traigo el archivo y devuelvo el array.
     async getAll() {
         try {

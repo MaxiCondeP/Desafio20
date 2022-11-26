@@ -1,9 +1,12 @@
 
 import { Message } from "../../src/containers/fileMessageContainer.js";
-import { daoMessages, daoProducts } from "../../src/daos/index.js";
+import repositoryMessages  from "../modules/repositoryMessages.js";
+import repositoryProducts from "../modules/repositoryProducts.js";
 import { Server as SocketServer } from "socket.io";
 import { httpServer } from "../../server.js";
 
+const repoMessages= new repositoryMessages();
+const repoProducts= new repositoryProducts();
 
 
 const logUsr = "";

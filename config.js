@@ -20,20 +20,20 @@ dotenv.config();
 const db = mongoose.connection;
 
 
-db.on('error', console.error.bind(console, 'connection error:')); 
+db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
-  console.log('Connected ok to mongoDB3'); 
+  console.log('Connected ok to mongoDB3');
 });
 
 
 
 export const config = {
-    mongo: {
-      uri: process.env.MONGO_URI_STRING,
-      options: { useNewUrlParser: true, useUnifiedTopology: true }
-    },
-    // firebase: {
-    //   db: admin.firestore()
-    // },
-    dataPersistence: process.env.DATA_PERSISTENCE,
-    }
+  mongo: {
+    uri: process.env.MONGO_URI_STRING,
+    options: { useNewUrlParser: true, useUnifiedTopology: true }
+  },
+  // firebase: {
+  //   db: admin.firestore()
+  // },
+  dataPersistence: process.env.DATA_PERSISTENCE,
+}

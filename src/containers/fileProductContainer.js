@@ -1,6 +1,6 @@
-
 import * as fs from 'fs';
 
+let instance= null;
 
 ///Creo la clase Producto
 export class Product {
@@ -18,6 +18,13 @@ export class fileProductContainer {
         this.fileRoute = "./public/" + this.name + ".txt";
     }
 
+
+    static getContainer(nombreArchivo){
+        if(!instance){
+            instance=new fileProductContainer(nombreArchivo);
+        }
+        return instance;
+    }
     ///Traigo el archivo y devuelvo el array.
     async getAll() {
         try {

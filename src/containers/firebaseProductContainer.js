@@ -1,11 +1,20 @@
 import {config} from '../../config.js';
 
+let instance=null;
+
 ///creo la clase Contenedor
 
 export class firebaseProductContainer {
     constructor() {
         this.db = config.firebase.db;
 		this.query = this.db.collection('products');
+    }
+
+    static getContainer(){
+        if(!instance){
+            instance=new firebaseProductContainer();
+        }
+        return instance;
     }
 
     ///Traigo el archivo y devuelvo el array.

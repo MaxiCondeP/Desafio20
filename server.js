@@ -18,8 +18,10 @@ export const __dirname = path.dirname(__filename);
 import { Strategy } from "passport-local";
 import { socketChat } from "./src/utils/chat.js";
 
-const options = { default: { PORT: 8080, MODE: "fork" }, alias: { p: "PORT", m: "MODE" } }
+const options = { default: { PORT: 8080, MODE: "fork",DAO: "MONGO" }, alias: { p: "PORT", m: "MODE",d: "DAO" } }
 const args = parseArgs(process.argv.slice(2), options);
+
+
 
 const app = express();
 app.use(express.static("public"));
@@ -86,6 +88,7 @@ if (args.MODE === 'CLUSTER') {
 
     try {
       srv.listen(PORT, () => {
+
         console.log(`Servidor escuchando en el puerto ${PORT}. PID: ${process.pid}`);
       });
     } catch (err) {
@@ -98,6 +101,7 @@ if (args.MODE === 'CLUSTER') {
 } else {
   try {
     srv.listen(PORT, () => {
+      
       console.log(`Servidor esuchando en el puerto ${PORT}. PID: ${process.pid}`);
     });
     srv.on("error", (error) => console.log(`Error en el servidor: ${error}`));
