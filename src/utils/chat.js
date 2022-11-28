@@ -1,19 +1,21 @@
 
 import { Message } from "../../src/containers/fileMessageContainer.js";
-import repositoryMessages  from "../modules/repositoryMessages.js";
+import repositoryMessages from "../modules/repositoryMessages.js";
 import repositoryProducts from "../modules/repositoryProducts.js";
 import { Server as SocketServer } from "socket.io";
 import { httpServer } from "../../server.js";
 
-const repoMessages= new repositoryMessages();
-const repoProducts= new repositoryProducts();
+const repoMessages = new repositoryMessages();
+const repoProducts = new repositoryProducts();
+const daoProducts = await repoProducts.getDao();
+const daoMessages = await repoMessages.getDao();
 
 
 const logUsr = "";
 
-export const socketChat=async ()=>{
-  
-const io = new SocketServer(httpServer);
+export const socketChat = async () => {
+
+  const io = new SocketServer(httpServer);
 
   io.on("connection", async (socket) => {
     console.log("Nuevo cliente conectado");

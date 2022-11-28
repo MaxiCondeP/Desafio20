@@ -6,15 +6,15 @@ import mongoose from 'mongoose';
 dotenv.config();
 
 
-// //prueba de conexion firebase
-// try {
-//   admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount)
-//   });
-//   console.log("Connected ok to Firebase");
-// } catch (error) {
-//   console.log(error);
-// }
+//prueba de conexion firebase
+try {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+  console.log("Connected ok to Firebase");
+} catch (error) {
+  console.log(error);
+}
 
 //prueba de conexion mongo
 const db = mongoose.connection;
@@ -32,8 +32,8 @@ export const config = {
     uri: process.env.MONGO_URI_STRING,
     options: { useNewUrlParser: true, useUnifiedTopology: true }
   },
-  // firebase: {
-  //   db: admin.firestore()
-  // },
+  firebase: {
+    db: admin.firestore()
+  },
   dataPersistence: process.env.DATA_PERSISTENCE,
 }

@@ -1,7 +1,7 @@
 import parseArgs from "minimist";
 
 
-export let daoProducts;
+let daoProducts;
 
 
 export class daoFactory {
@@ -14,17 +14,17 @@ export class daoFactory {
 		switch (this.dao) {
 			case 'MONGO':
 				const { default: mongoProductDao } = await import('../daos/mongoProductDao.js');
-				daoProducts = mongoProductDao.getContainer();
+				return  daoProducts = mongoProductDao.getContainer();
 
 				break;
 			case 'FIREBASE':
 				const { default: firebaseProductDao } = await import('../daos/firebaseProductDao.js');
-				daoProducts =  firebaseProductDao.getContainer();
+				return daoProducts =  firebaseProductDao.getContainer();
 
 				break;
 			default:
 				const { default: fileProductDao } = await import('../daos/fileProductDao.js');
-				daoProducts = fileProductDao.getContainer('products');
+				return daoProducts = fileProductDao.getContainer('products');
 
 				break;
 		}

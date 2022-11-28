@@ -5,9 +5,14 @@ const options = { default: { PORT: 8080, MODE: "fork", DAO: "MONGO" }, alias: { 
 const args = parseArgs(process.argv.slice(2), options);
 const dao = args.DAO.toUpperCase();
 
-export default class repositoryMessages {
-    constructor(){
-        const factory=new daoFactory(dao);
-        this.dao=factory.getDao();
+export default  class repositoryMessages {
+     constructor (){
+        this.factory=new daoFactory(dao);
     }
+
+    async getDao(){
+
+        return await this.factory.getDao();
+    }
+    
 }

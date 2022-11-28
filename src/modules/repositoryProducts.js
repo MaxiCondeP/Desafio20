@@ -7,7 +7,12 @@ const dao = args.DAO.toUpperCase();
 
 export default class repositoryProducts {
     constructor(){
-        const factory=new daoFactory(dao);
-        this.dao=factory.getDao();
+        this.factory=new daoFactory(dao);
+    }
+
+    
+    async getDao(){
+
+        return await this.factory.getDao();
     }
 }

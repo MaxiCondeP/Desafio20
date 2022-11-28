@@ -13,20 +13,20 @@ export class daoFactory {
 
 	async getDao(dao) {
 
-		switch (dao) {
+		switch (this.dao) {
 			case 'MONGO':
 				const { default: mongoMessageDao } = await import('../daos/mongoMessageDao.js');
-				daoMessages = mongoMessageDao.getContainer();
+				return daoMessages = mongoMessageDao.getContainer();
 
 				break;
 			case 'FIREBASE':
 				const { default: firebaseMessageDao } = await import('../daos/firebaseMessageDao.js');
-				daoMessages =  firebaseMessageDao.getContainer();
+				return daoMessages =  firebaseMessageDao.getContainer();
                 
 				break;
 			default:
 				const { default: fileMessageDao } = await import('../daos/fileMessageDao.js');
-				daoMessages = fileMessageDao.getContainer('messages');
+				return daoMessages = fileMessageDao.getContainer('messages');
 
 				break;
 		}
