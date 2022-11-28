@@ -1,15 +1,5 @@
 import {config} from '../../config.js';
 
-
-import mongoose from "mongoose";
-try {
-    mongoose.connect(config.mongo.uri, config.mongo.options);
-} catch (error) {
-    console.log("Error en db 1",error);
-};
-
-
-
 let instance=null;
 
 ///creo la clase Contenedor

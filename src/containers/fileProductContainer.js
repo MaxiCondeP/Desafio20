@@ -1,17 +1,6 @@
-import { config } from '../../config.js';
-import mongoose from "mongoose";
-
 import * as fs from 'fs';
 
 let instance= null;
-
-try {
-    mongoose.connect(config.mongo.uri, config.mongo.options);
-} catch (error) {
-    console.log("Error en db 1",error);
-};
-
-
 
 
 ///Creo la clase Producto

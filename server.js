@@ -17,12 +17,13 @@ const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 import { Strategy } from "passport-local";
 import { socketChat } from "./src/utils/chat.js";
+import { connectUsrDB } from "./src/utils/database.js";
 
 const options = { default: { PORT: 8080, MODE: "fork",DAO: "MONGO" }, alias: { p: "PORT", m: "MODE",d: "DAO" } }
 const args = parseArgs(process.argv.slice(2), options);
 
 
-
+connectUsrDB();
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());

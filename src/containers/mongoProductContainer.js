@@ -1,15 +1,7 @@
 import mongoose from "mongoose";
-import {config} from '../../config.js';
+import { ProductDTO } from '../modules/dtoProducts.js';
 
 let instance=null;
-
-try {
- 
-    mongoose.connect(config.mongo.uri,config.mongo.options);
-    console.log("Connected ok to mongoDB");
-} catch (error) {
-    console.log(error);
-};
 
 
 const schemaProduct = new mongoose.Schema({
@@ -52,6 +44,21 @@ export class mongoProductContainer {
         catch (err) {
             console.log("Error al traer datos de la base", err)
             return { error: "Error al traer datos de la base", err }
+        }
+    }
+
+    async getDTOProduct() {
+        try {
+            let products = await this.getAll();
+            let productsDTO=[];
+            products.map((prod) => {
+                let product=new ProductDTO(prod)
+                productsDTO.push(product)
+            });
+            return productsDTO;
+        }
+        catch (err) {
+            console.log("Error al traer datos de la base", err);
         }
     }
 

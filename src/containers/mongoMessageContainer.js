@@ -1,13 +1,8 @@
 import mongoose from "mongoose";
-import { config } from '../../config.js';
+import { MessageDTO } from '../modules/dtoMessages.js';
 
-let instance=null;
 
-try {
-    mongoose.connect(config.mongo.uri, config.mongo.options);
-} catch (error) {
-    console.log("Error en db 1",error);
-};
+let instance = null;
 
 const schemaMessage = new mongoose.Schema({
     author: {
@@ -43,9 +38,9 @@ export class mongoMessageContainer {
         this.collection = mongoose.model('messages', schemaMessage);
     }
 
-    static getContainer(){
-        if(!instance){
-            instance=new mongoMessageContainer();
+    static getContainer() {
+        if (!instance) {
+            instance = new mongoMessageContainer();
         }
         return instance;
     }
@@ -54,7 +49,23 @@ export class mongoMessageContainer {
     async getAll() {
         try {
             const content = await this.collection.find();
-            return (content);;
+
+            return (content);
+        }
+        catch (err) {
+            console.log("Error al leer historial de mensajes", err);
+        }
+    }
+
+    async getDTOMessage() {
+        try {
+            let messages = await this.getAll();
+            let messagesDTO=[];
+            messages.map((msg) => {
+                let message=new MessageDTO(msg)
+                messagesDTO.push(message)
+            })
+            return messagesDTO;
         }
         catch (err) {
             console.log("Error al leer historial de mensajes", err);

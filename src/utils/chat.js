@@ -11,6 +11,7 @@ const daoProducts = await repoProducts.getDao();
 const daoMessages = await repoMessages.getDao();
 
 
+
 const logUsr = "";
 
 export const socketChat = async () => {
@@ -22,8 +23,8 @@ export const socketChat = async () => {
     ///getFakerProducts();
 
     try {
-      socket.server.emit("RENDER_PRODUCTS", await daoProducts.getAll(), logUsr);
-      let chat = await daoMessages.getAll();
+      socket.server.emit("RENDER_PRODUCTS", await daoProducts.getDTOProduct(), logUsr);
+      let chat = await daoMessages.getDTOMessage();
       socket.server.emit("RENDER_CHAT", chat);
 
     } catch (err) {
@@ -32,7 +33,7 @@ export const socketChat = async () => {
 
     socket.on("ADD_PRODUCT", async (product) => {
       await daoProducts.save(product);
-      io.sockets.emit("RENDER_PRODUCTS", await daoProducts.getAll());
+      io.sockets.emit("RENDER_PRODUCTS", await daoProducts.getDTOProduct());
     });
 
     socket.on("ADD_MESSAGE", async (message) => {
@@ -45,7 +46,7 @@ export const socketChat = async () => {
         message.author.avatar,
         message.text);
       await daoMessages.save(newMessage);
-      let chat = await daoMessages.getAll();
+      let chat = await daoMessages.getDTOMessage();
       socket.server.emit("RENDER_CHAT", chat);
     });
 
