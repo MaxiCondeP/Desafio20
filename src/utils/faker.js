@@ -1,5 +1,5 @@
-import { daoProducts } from "../../src/daos/index.js";
-import { fakeProducts } from "./src/utils/addProduct.js";
+import { daoProducts } from "../../server.js";
+import { fakeProducts } from "../../src/utils/addProduct.js";
 
 ///GENERO LOS 5 PRODUCTOS MOCKEADOS
 async function getFakerProducts() {
@@ -9,4 +9,9 @@ async function getFakerProducts() {
       await daoProducts.save(product);
   
     }
-  }  
+  } 
+  
+  export const getFakerProduct=()=>{
+    let product = fakeProducts();
+    return product;
+  }

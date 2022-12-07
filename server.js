@@ -1,7 +1,7 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import { Server as HTTPServer } from "http";
-import { routeInfo, routeRandom } from "./src/routes/routesApi.js"
+import { routeInfo, routeRandom,routeProducts } from "./src/routes/routesApi.js"
 import { routeIndex } from "./src/routes/route.js";
 import cluster from "cluster";
 import os from "os";
@@ -18,6 +18,14 @@ export const __dirname = path.dirname(__filename);
 import { Strategy } from "passport-local";
 import { socketChat } from "./src/utils/chat.js";
 import { connectUsrDB } from "./src/utils/database.js";
+
+import repositoryMessages from "./src/modules/repositoryMessages.js";
+import repositoryProducts from "./src/modules/repositoryProducts.js";
+const repoMessages = new repositoryMessages();
+const repoProducts = new repositoryProducts();
+export const daoProducts = await repoProducts.getDao();
+export const daoMessages = await repoMessages.getDao();
+
 
 const options = { default: { PORT: 8080, MODE: "fork",DAO: "MONGO" }, alias: { p: "PORT", m: "MODE",d: "DAO" } }
 const args = parseArgs(process.argv.slice(2), options);
@@ -47,9 +55,12 @@ app.use(passport.session());
 const LocalStrategy = Strategy;
 await localPassport(passport,LocalStrategy);
 
-app.use('/',routeIndex);
 app.use('/info', routeInfo);
 app.use('/api', routeRandom);
+app.use('/api', routeProducts);
+app.use('/',routeIndex);
+
+
 
 //Configuro motor de plantillas
 app.engine(

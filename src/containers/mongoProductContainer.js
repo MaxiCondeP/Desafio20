@@ -62,7 +62,18 @@ export class mongoProductContainer {
         }
     }
 
-
+      ////Devuelvo un DTO de producto por el ID
+      async getDTOByID(id) {
+        try {
+            let prod = await this.collection.findOne({ id: id });
+            let product=new ProductDTO(prod)
+            return product;
+        } catch (err) {
+            console.log("No se encontró el product", err)
+            return { error: "No se encontró el product" }
+        }
+    }
+    
     ////Agrego producto al array
     async save(product) {
         try {
@@ -96,6 +107,42 @@ export class mongoProductContainer {
             return { error: "No se encontró el product" }
         }
     }
+
+
+    async editByID(id, newProd) {
+        try {
+            let prod = await this.getByID(id);
+
+            if (prod) {
+                let updated = new Product(newProd.title, newProd.price,newProd.thumbnail,newProd.stock, id);
+                await this.collection.findOneAndUpdate({_id: prod._id},updated);
+
+                return updated;
+            }
+        } catch(err) {
+            console.log("No se encontró el product", err)
+            return { error: "No se encontró el product" }
+        }
+
+    }
+
+
+    ///Elimino un producto por ID
+    async deleteById(id) {
+        try {
+            let content = await this.getAll();
+            //Busco el index del id, y si existe lo elimino del array
+            const index = content.findIndex(prod => prod.id == id);
+            if (index != -1) {
+                await this.collection.deleteOne({id: id})
+            }
+        } catch {
+            console.log("No se pudo eliminar el product", err)
+            return { error: "No se pudo eliminar el product" }
+        }
+    }
+
+
 
    
 }

@@ -67,5 +67,38 @@ export class firebaseProductContainer {
         }
     }
 
+    
+    async editByID(id, newProd) {
+        try {
+            let prod = await this.getByID(id);
+            if (prod) {
+                let updated = { ...newProd, id: id }
+                const doc=  this.query.doc(`${id}`);
+                return await doc.update(updated);
+            }
+        } catch (err){
+            console.log("No se encontró el product", err)
+            return { error: "No se encontró el product" }
+        }
+
+    }
+
+
+    ///Elimino un producto por ID
+    async deleteById(id) {
+        try {
+            let content = await this.getAll();
+            //Busco el index del id, y si existe lo elimino del array
+            const index = content.findIndex(prod => prod.id == id);
+            if (index != -1) {
+                await this.query.doc(`${id}`).delete();
+            }
+        } catch {
+            console.log("No se pudo eliminar el product", err)
+            return { error: "No se pudo eliminar el product" }
+        }
+    }
+
+
 }
 

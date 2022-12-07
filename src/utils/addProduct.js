@@ -5,6 +5,7 @@
      return{
          title : faker.commerce.productName(),
          price : faker.commerce.price(),
+         stock: faker.random.numeric(),
          thumbnail : faker.image.image()
      }
     
