@@ -135,6 +135,7 @@ export class mongoProductContainer {
             const index = content.findIndex(prod => prod.id == id);
             if (index != -1) {
                 await this.collection.deleteOne({id: id})
+                return content[index]
             }
         } catch {
             console.log("No se pudo eliminar el product", err)

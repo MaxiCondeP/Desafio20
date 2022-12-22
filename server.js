@@ -19,6 +19,10 @@ import { Strategy } from "passport-local";
 import { socketChat } from "./src/utils/chat.js";
 import { connectUsrDB } from "./src/utils/database.js";
 
+import {schemaGraphQL, getProduct, getProducts,saveProduct, updateProduct,deleteProduct} from "./graphqlAPI.js"
+import { graphqlHTTP } from "express-graphql";
+
+
 import repositoryMessages from "./src/modules/repositoryMessages.js";
 import repositoryProducts from "./src/modules/repositoryProducts.js";
 const repoMessages = new repositoryMessages();
@@ -54,6 +58,22 @@ app.use(passport.initialize());
 app.use(passport.session());
 const LocalStrategy = Strategy;
 await localPassport(passport,LocalStrategy);
+
+
+
+
+app.use('/graphql', graphqlHTTP({
+  schema: schemaGraphQL,
+  rootValue: {
+    getProduct,
+    getProducts,
+    saveProduct,
+    updateProduct,
+    deleteProduct,
+},
+  graphiql:true
+}));
+
 
 app.use('/info', routeInfo);
 app.use('/api', routeRandom);
